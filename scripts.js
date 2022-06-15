@@ -6,7 +6,9 @@ const img5 = '/images/revertitparrot.gif';
 const img6 = '/images/tripletsparrot.gif';
 const img7 = '/images/unicornparrot.gif';
 const cardsArray = [img1, img2, img3, img4, img5, img6, img7];
-let flipped, firstCard, secondCard, totalPlays;
+let indexArray, flipped, firstCard, secondCard, totalPlays;
+let counter = 0;
+let lockedBoard = false;
 
 function choseCardNumber() {
     let incializador = true;
@@ -23,7 +25,7 @@ function choseCardNumber() {
 
 function displayCards(num) {
     const gameDisplay = document.querySelector('main');
-    const indexArray = num/2;
+    indexArray = num/2;
     let gameArray = cardsArray.slice(0, indexArray);
     gameArray = gameArray.concat(gameArray);
     let shuffleArray = gameArray.sort(shuffleCards);
@@ -48,18 +50,21 @@ function shuffleCards() {
 }
 
 function flipCard() {
-    flipped++;
-
-    if (flipped <= 2) {
-        this.classList.add('flip');
-        if (flipped === 1) {
-            firstCard = this;
-        } else if (flipped === 2) {
-            secondCard = this;
-            flipped = 0;
-            checkMatch();
-        }
-    }     
+    if (this !== firstCard && !lockedBoard) {
+        flipped++;
+        totalPlays++;
+        if (flipped <= 2) {
+            this.classList.add('flip');
+            if (flipped === 1) {
+                firstCard = this;
+            } else if (flipped === 2) {
+                secondCard = this;
+                flipped = 0;
+                lockedBoard = true;
+                checkMatch();
+            }
+        }     
+    }
 }
 
 function checkMatch() {
@@ -68,8 +73,10 @@ function checkMatch() {
     if (firstSRC === secondSRC) {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
+        counter++;
+        setTimeout (endGame, 1000);
     } else {
-        setTimeout(unflipCard, 1200);
+        setTimeout(unflipCard, 1000);
     }
 }
 
@@ -78,8 +85,15 @@ function unflipCard() {
     secondCard.classList.remove('flip');
     firstCard = undefined;
     secondCard = undefined;
+    lockedBoard = false;
 }
 
+function endGame() {
+    if (counter === indexArray) {
+        alert(`Você ganhou em ${totalPlays} jogadas!`);
+    }
+    lockedBoard = false;
+}
 
 
 choseCardNumber();
