@@ -29,9 +29,10 @@ main {
     margin: 0 auto;
     width: 90vw;
     max-width: 1100px;
+    perspective: 2000px;
 }
 
-.card-back {
+.card {
     width: 117px;
     height: 146px;
     background: #A7E9AF;
@@ -42,10 +43,23 @@ main {
     align-items: center;
     margin-right: 34px;
     margin-bottom: 34px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .5s;
 }
 
-.card-back img {
+.card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face, .back-face {
+    position: absolute;
     width: 100px;
+    backface-visibility: hidden;
+}
+
+.front-face {
+    transform: rotateY(180deg);
 }
 
 @media (max-width: 450px) {
