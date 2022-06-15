@@ -6,6 +6,8 @@ const img5 = '/images/revertitparrot.gif';
 const img6 = '/images/tripletsparrot.gif';
 const img7 = '/images/unicornparrot.gif';
 const cardsArray = [img1, img2, img3, img4, img5, img6, img7];
+let totalPlays;
+let flippedCard;
 
 function choseCardNumber() {
     let incializador = true;
@@ -18,10 +20,6 @@ function choseCardNumber() {
         }
     }
     displayCards(numberCards);
-}
-
-function flipCard() {
-    this.classList.toggle('flip');
 }
 
 function displayCards(num) {
@@ -42,12 +40,18 @@ function displayCards(num) {
         `;
         i++;
     }
+    totalPlays = 0;
+    flippedCard = 0;
+
+}
+
+function flipCard() {
+    this.classList.toggle('flip');
 }
 
 function shuffleCards() { 
     return Math.random() - 0.5; 
 }
-
 
 choseCardNumber();
 const cards = document.querySelectorAll('.card');
