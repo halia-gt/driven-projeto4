@@ -43,6 +43,7 @@ main {
     align-items: center;
     margin-right: 34px;
     margin-bottom: 34px;
+    cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
     transition: transform .5s;

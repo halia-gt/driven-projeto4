@@ -6,8 +6,7 @@ const img5 = '/images/revertitparrot.gif';
 const img6 = '/images/tripletsparrot.gif';
 const img7 = '/images/unicornparrot.gif';
 const cardsArray = [img1, img2, img3, img4, img5, img6, img7];
-let totalPlays;
-let flippedCard;
+let flipped, firstCard, secondCard, totalPlays;
 
 function choseCardNumber() {
     let incializador = true;
@@ -41,17 +40,47 @@ function displayCards(num) {
         i++;
     }
     totalPlays = 0;
-    flippedCard = 0;
-
-}
-
-function flipCard() {
-    this.classList.toggle('flip');
+    flipped = 0;
 }
 
 function shuffleCards() { 
     return Math.random() - 0.5; 
 }
+
+function flipCard() {
+    flipped++;
+
+    if (flipped <= 2) {
+        this.classList.add('flip');
+        if (flipped === 1) {
+            firstCard = this;
+        } else if (flipped === 2) {
+            secondCard = this;
+            flipped = 0;
+            checkMatch();
+        }
+    }     
+}
+
+function checkMatch() {
+    const firstSRC = firstCard.querySelector('img').src;
+    const secondSRC = secondCard.querySelector('img').src;
+    if (firstSRC === secondSRC) {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+    } else {
+        setTimeout(unflipCard, 1200);
+    }
+}
+
+function unflipCard() {
+    firstCard.classList.remove('flip');
+    secondCard.classList.remove('flip');
+    firstCard = undefined;
+    secondCard = undefined;
+}
+
+
 
 choseCardNumber();
 const cards = document.querySelectorAll('.card');
