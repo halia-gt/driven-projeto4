@@ -6,7 +6,7 @@ const img5 = 'revertitparrot.gif';
 const img6 = 'tripletsparrot.gif';
 const img7 = 'unicornparrot.gif';
 const cardsArray = [img1, img2, img3, img4, img5, img6, img7];
-let indexArray, flipped, firstCard, secondCard, totalPlays, cards;
+let indexArray, flipped, firstCard, secondCard, totalPlays, cards, seconds;
 let counter = 0;
 let lockedBoard = false;
 
@@ -100,7 +100,7 @@ function unflipCard() {
 function endGame() {
     let restart = '';
     if (counter === indexArray) {
-        alert(`Você ganhou em ${totalPlays} jogadas!`);
+        alert(`Você ganhou em ${totalPlays} jogadas! Duração: ${seconds - 1} segundos.`);
 
         do {
             if (restart !== 'sim' && restart !== 'não') {
@@ -110,6 +110,7 @@ function endGame() {
     }
     if (restart === 'sim') {
         choseCardNumber();
+        timer();
     }
     lockedBoard = false;
 }
@@ -123,6 +124,18 @@ function resetGameBoard() {
     cards = document.querySelectorAll('.card');
     cards.forEach(card => card.addEventListener('click', flipCard));
     lockedBoard = false;
+    timer();
+}
+
+function timer(){
+    seconds = 0;
+    let timer = setInterval(function() {
+        document.querySelector('.timer').innerHTML = `${seconds}s`;
+        if (counter === indexArray) {
+            clearInterval(timer);
+        }
+        seconds++;
+    }, 1000);
 }
 
 choseCardNumber();
