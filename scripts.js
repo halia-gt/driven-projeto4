@@ -44,10 +44,9 @@ function displayCards(num) {
         gameDisplay.innerHTML = gameDisplay.innerHTML +
         `
         <div class="card" data-identifier="card">
-            <img class="front-face" src="images/${gameArray[i]}" data-identifier="front-face">
-            <img class="back-face" src="images/front.png" data-identifier="back-face">
-        </div>
-        
+            <img class="front-face" src="./images/${gameArray[i]}" data-identifier="front-face">
+            <img class="back-face" src="./images/front.png" data-identifier="back-face">
+        </div> 
         `;
         i++;
     }
