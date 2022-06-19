@@ -31,6 +31,7 @@ function choseCardNumber() {
 function displayCards(num) {
     const gameDisplay = document.querySelector('main');
     gameDisplay.innerHTML = '';
+    cardsArray.sort(shuffleCards);
     
     indexArray = num/2;
     let gameArray = cardsArray.slice(0, indexArray);
@@ -43,8 +44,8 @@ function displayCards(num) {
         gameDisplay.innerHTML = gameDisplay.innerHTML +
         `
         <div class="card" data-identifier="card">
-            <img class="front-face" src="/images/${gameArray[i]}" data-identifier="front-face">
-            <img class="back-face" src="/images/front.png" data-identifier="back-face">
+            <img class="front-face" src="images/${gameArray[i]}" data-identifier="front-face">
+            <img class="back-face" src="images/front.png" data-identifier="back-face">
         </div>
         
         `;
